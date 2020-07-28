@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import VoteSection from './VoteSection';
 
 class YupPage extends Component {
-    state = {
-        
-    }
+    state = {}
+    
     async componentDidMount() {
        try {
            let info = await axios.get('https://api.yup.io/posts/post/12294')
            console.log(info.data)
 
-        //Put the values requested from the backend into component state
+        //Put the all values requested from the backend into component state
         this.setState({
             thumbnail: info.data.previewData.img,
             popularity: info.data.weights.popularity,
@@ -30,6 +30,7 @@ class YupPage extends Component {
                 <p>{this.state.popularity}</p>
                 <p>{this.state.intelligence}</p>
                 <p>{this.state.funny}</p>
+                <VoteSection />
             </div>
         );
     }

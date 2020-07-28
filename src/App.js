@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './Components/YupPage'
 import YupPage from './Components/YupPage';
 
 function App() {
