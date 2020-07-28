@@ -12,7 +12,18 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+/* This makes the svg for inteligence match the color of the other two */
 #bulb{fill: white;}
+
+
+.numbers {
+  text-decoration: underline;
+  color: aquamarine;
+}
+span {
+  color: black;
+}
 
 .App-header {
   background-color: #282c34;

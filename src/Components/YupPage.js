@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
+import { colors } from '@material-ui/core';
 
 class YupPage extends Component {
     state = {}
     
     async componentDidMount() {
        try {
-           let info = await axios.get('https://api.yup.io/posts/post/12294')
-           console.log(info.data)
+           let info = await axios.get('https://api.yup.io/posts/post/12794')
+           console.log(info.data.sextiles.intelligence)
 
-        //Put the all values requested from the backend into component state
+        //Put all values returned from the API into component state
         this.setState({
             thumbnail: info.data.previewData.img,
             popularity: info.data.weights.popularity,
             intelligence: info.data.weights.intelligence,
-            funny: info.data.weights.funny
+            funny: info.data.weights.funny,
+            //Sextiles
+            popSextile: info.data.sextiles.popularity,
+            intelSextile: info.data.sextiles.intelligence,
+            funSextile: info.data.sextiles.funny
         })
        }
        catch(err) {
@@ -27,9 +32,9 @@ class YupPage extends Component {
         return (
             <div>
                 <img src={this.state.thumbnail} alt='thumbnail for post'/>
-                <p>{this.state.popularity}</p>
-                <p>{this.state.intelligence}</p>
-                <p>{this.state.funny}</p>
+                <p className="numbers"><span>{this.state.popularity}</span></p>
+                <p className="numbers"><span>{this.state.intelligence}</span></p>
+                <p className="numbers"><span>{this.state.funny}</span></p>
                 <VoteSection />
             </div>
         );
@@ -38,7 +43,6 @@ class YupPage extends Component {
 
 export default YupPage;
 
-// info.data.previewData.img
-// info.data.weights.popularity
-// info.data.weights.funny
-// info.data.weights.intelligence
+// Sextile Stuff
+// maybe use a switch statement to handle the sextile value you get from API
+// Pass the sextile value from state into a switch statement function
