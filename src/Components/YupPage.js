@@ -10,7 +10,7 @@ class YupPage extends Component {
            let info = await axios.get('https://api.yup.io/posts/post/12794')
         //    console.log(info.data.sextiles.popularity)
 
-        //Put all values returned from the API into component state
+        //Put all required values returned from the API into component state
         this.setState({
             thumbnail: info.data.previewData.img,
             popularity: Math.floor(info.data.weights.popularity),
@@ -26,9 +26,7 @@ class YupPage extends Component {
            console.log(err)
        }
     }
-    // const levelColors = {
-    //     first: '#00E4FF', second: '#00FFA6', third: '#3EFF00', fourth: '#FFFB00', fifth: '#FFAE00', sixth: '#FF6100'
-    // }
+
     // Hanlde the different sextile scenarios
     displaySextileColor(value) {
         switch (value) {
@@ -55,7 +53,6 @@ class YupPage extends Component {
 
         return (
             <div>
-                {/* Move to the YupPage component later */}
                 <img src={this.state.thumbnail} alt='thumbnail for post'/>
                 <VoteSection {...this.state}
                     displayColor={this.displaySextileColor}

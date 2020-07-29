@@ -17,9 +17,14 @@
 #bulb{fill: white;}
 
 
-/* .numbers {
-  text-decoration: underline; 
-} */
+.downColor {
+  color: red;
+}
+
+.upColor  {
+  color: #27ae60;
+}
+
 span {
   color: black;
 }
