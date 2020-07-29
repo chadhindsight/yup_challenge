@@ -18,8 +18,7 @@
 
 
 .numbers {
-  text-decoration: underline;
-  color: aquamarine;
+  text-decoration: underline; 
 }
 span {
   color: black;

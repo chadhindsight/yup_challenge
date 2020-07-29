@@ -9,7 +9,7 @@ class YupPage extends Component {
     async componentDidMount() {
        try {
            let info = await axios.get('https://api.yup.io/posts/post/12794')
-           console.log(info.data.sextiles.intelligence)
+           console.log(info.data.sextiles)
 
         //Put all values returned from the API into component state
         this.setState({
@@ -27,15 +27,36 @@ class YupPage extends Component {
            console.log(err)
        }
     }
+    // const levelColors = {
+    //     first: '#00E4FF', second: '#00FFA6', third: '#3EFF00', fourth: '#FFFB00', fifth: '#FFAE00', sixth: '#FF6100'
+    // }
+    // Hanlde the different sextile scenarios
+    displaySextileColor(value) {
+        switch (value) {
+            case 'first':
+                return '#00E4FF';
+            case 'second':
+                return '#00FFA6';
+            case 'third':
+                return '#3EFF00';
+            case 'fourth':
+                return '#FFFB00';
+            case 'fifth':
+                return '#FFAE00';
+            case 'sixth':
+                return '#FF6100';
+            default:
+                return '';
+        }
+    }
+
 
     render() {
         return (
             <div>
+                {/* Move to the YupPage component later */}
                 <img src={this.state.thumbnail} alt='thumbnail for post'/>
-                <p className="numbers"><span>{this.state.popularity}</span></p>
-                <p className="numbers"><span>{this.state.intelligence}</span></p>
-                <p className="numbers"><span>{this.state.funny}</span></p>
-                <VoteSection />
+                <VoteSection {...this.state}/>
             </div>
         );
     }
