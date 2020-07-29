@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
-import { colors } from '@material-ui/core';
 
 class YupPage extends Component {
     state = {}
@@ -9,7 +8,7 @@ class YupPage extends Component {
     async componentDidMount() {
        try {
            let info = await axios.get('https://api.yup.io/posts/post/12794')
-           console.log(info.data.sextiles)
+        //    console.log(info.data.sextiles.popularity)
 
         //Put all values returned from the API into component state
         this.setState({
@@ -46,17 +45,21 @@ class YupPage extends Component {
             case 'sixth':
                 return '#FF6100';
             default:
-                return '';
+                return 'nothing';
         }
     }
 
-
+    
     render() {
+        console.log(this.displaySextileColor(this.state.popSextile))
+
         return (
             <div>
                 {/* Move to the YupPage component later */}
                 <img src={this.state.thumbnail} alt='thumbnail for post'/>
-                <VoteSection {...this.state}/>
+                <VoteSection {...this.state}
+                    displayColor={this.displaySextileColor}
+                />
             </div>
         );
     }
