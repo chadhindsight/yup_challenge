@@ -19,9 +19,10 @@ const VoteSection = (props) => {
     const [upActive3, setUp3] = useState(false)
 
     // The template in the styled component will handle what color the underline should be
+    // Styled comp for  Funny Number
     const FunnyCount = styled.p`
         text-decoration: underline;
-    color: ${props.displayColor(props.intelSextile)}
+    color: ${props.displayColor(props.funSextile)}
 `;
 
     // Styled Comp for Popularity Number
@@ -30,8 +31,10 @@ const VoteSection = (props) => {
     color: ${props.displayColor(props.popSextile)}
 `
     //Styled comp for Intelligence Number
-
-    // Styled comp for  Funny Number
+    const Intelligence = styled.p`
+    text-decoration: underline;
+    color: ${props.displayColor(props.intelSextile)}
+`
 
     return (
         <div>
@@ -57,7 +60,7 @@ const VoteSection = (props) => {
             <KeyboardArrowDownIcon className={downActive2 ? "downColor" : null} onClick={(e) => setDown2(!downActive2)}/>
 
             {props.intelSextile !== 'none' ?
-                <Popularity><span>{props.intelligence}</span></Popularity> :
+                <Intelligence><span>{props.intelligence}</span></Intelligence> :
                 <p>{props.intelligence}</p>
             }
             
@@ -68,8 +71,11 @@ const VoteSection = (props) => {
                 </SvgIcon>
             </Tooltip>
             <KeyboardArrowDownIcon className={downActive3 ? "downColor" : null} onClick={(e) => setDown3(!downActive3)}/>
-
-            <p><span>{props.funny}</span></p>
+            {
+                props.funSextile !== 'none' ?
+                    <FunnyCount><span>{props.funny}</span></FunnyCount> :
+                <p>{props.funny}</p>
+            }
         </div>
     );
 };
