@@ -13,9 +13,9 @@ class YupPage extends Component {
         //Put all values returned from the API into component state
         this.setState({
             thumbnail: info.data.previewData.img,
-            popularity: info.data.weights.popularity,
-            intelligence: info.data.weights.intelligence,
-            funny: info.data.weights.funny,
+            popularity: Math.floor(info.data.weights.popularity),
+            intelligence: Math.floor(info.data.weights.intelligence),
+            funny: Math.floor(info.data.weights.funny),
             //Sextiles
             popSextile: info.data.sextiles.popularity,
             intelSextile: info.data.sextiles.intelligence,

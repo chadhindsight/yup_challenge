@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { ReactComponent as Funny } from '../assets/laughing.svg';
 import { ReactComponent as Heart } from '../assets/heart.svg';
@@ -16,51 +16,54 @@ const VoteSection = (props) => {
     color: ${props.displayColor(props.intelSextile)}
 `;
 
-// Styled Comp for Popularity Number
-const Popularity = styled.p `
+    // Styled Comp for Popularity Number
+    const Popularity = styled.p`
     text-decoration: underline;
     color: ${props.displayColor(props.popSextile)}
 `
-//Styled comp for Intelligence Number
+    //Styled comp for Intelligence Number
 
-// Styled comp for  Funny Number
+    // Styled comp for  Funny Number
 
     return (
         <div>
-            <ArrowUpwardIcon />
+            <KeyboardArrowUpIcon />
             <Tooltip title="popularity">
                 <SvgIcon>
                     <Heart />
                 </SvgIcon>
             </Tooltip>
-            <ArrowDownwardIcon />    
+            <KeyboardArrowDownIcon />
 
-            {props.popSextile !== 'none'? 
+            {props.popSextile !== 'none' ?
                 <Popularity><span>{props.popularity}</span></Popularity> :
                 <p>{props.popularity}</p>
             }
-
+            
+            <KeyboardArrowUpIcon />
             <Tooltip title="intelligence">
                 <SvgIcon >
-                    <Idea/>
+                    <Idea />
                 </SvgIcon>
             </Tooltip>
+            <KeyboardArrowDownIcon />
+
             {props.intelSextile !== 'none' ?
                 <Popularity><span>{props.intelligence}</span></Popularity> :
                 <p>{props.intelligence}</p>
             }
-
+            
+            <KeyboardArrowUpIcon />
             <Tooltip title="funny">
                 <SvgIcon>
                     <Funny />
                 </SvgIcon>
             </Tooltip>
+            <KeyboardArrowDownIcon />
+
             <p><span>{props.funny}</span></p>
         </div>
     );
 };
 
 export default VoteSection;
-
-    // <p className="numbers" style={{ color: 'aquamarine' }}><span>{props.info.intelligence}</span></p>
-    // <p className="numbers" style={{ color: 'aquamarine' }}><span>{props.info.funny}</span></p>
