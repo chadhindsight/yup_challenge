@@ -29,11 +29,12 @@ const Popularity = styled.p `
         <div>
             <ArrowUpwardIcon />
             <Tooltip title="popularity">
-            <ArrowDownwardIcon />    
                 <SvgIcon>
                     <Heart />
                 </SvgIcon>
             </Tooltip>
+            <ArrowDownwardIcon />    
+
             {props.popSextile !== 'none'? 
                 <Popularity><span>{props.popularity}</span></Popularity> :
                 <p>{props.popularity}</p>
