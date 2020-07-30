@@ -1,54 +1,21 @@
-.App {
-  text-align: center;
+#bulb {
+  fill: white;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-/* This makes the svg for inteligence match the color of the other two */
-#bulb{fill: white;}
-
 
 .downColor {
   color: red;
 }
 
-.upColor  {
+.upColor {
   color: #27ae60;
 }
 
-span {
+/* span {
   color: black;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+} */
+.vote-container {
+  width: 50%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  flex-direction: row;
+  justify-content: space-evenly;
 }

@@ -28,18 +28,19 @@ const VoteSection = (props) => {
 
         return props.options?.map((stat, index) => {
             return (
-                <div key={index} className='vote-section'>
+                <div key={index}>
 
                     <Grid
                         container
                         direction="row">
 
                         <Grid item xs >
-                            <KeyboardArrowUpIcon title="up-arrow" />
+                            <KeyboardArrowUpIcon className={stat.up ? 'upColor' : null} title="up-arrow"
+                                onClick={() => props.updateVote(stat.name, 1)} />
                             <Tooltip title={stat.name}>
-                                <img src={`/assets/${stat.name}.svg`} alt={stat.name} />
+                                <img id="bulb" src={`/assets/${stat.name}.svg`} alt={stat.name} />
                             </Tooltip>
-                            <KeyboardArrowDownIcon />
+                            <KeyboardArrowDownIcon className={stat.down ? 'downColor' : null} onClick={() => props.updateVote(stat.name, -1)} />
                         </Grid>
                         <Grid item xs >
                             <Text color={props.displayColor[stat.sextile]} decoration={props.displayColor[stat.sextile] ? 'underline' :
@@ -53,9 +54,9 @@ const VoteSection = (props) => {
         })
     }
     return (
-        <>
+        <div className="vote-container">
             {displayVotes()}
-        </>
+        </div>
     );
 };
 
