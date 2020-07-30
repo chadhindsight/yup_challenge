@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
-import { Grid } from '@material-ui/core';
+import { Grid, Card } from '@material-ui/core';
 
-export const displaySextileColor = (value) => {
-    // Hanlde the different sextile scenarios
-    switch (value) {
-        case 'first':
-            return '#00E4FF';
-        case 'second':
-            return '#00FFA6';
-        case 'third':
-            return '#3EFF00';
-        case 'fourth':
-            return '#FFFB00';
-        case 'fifth':
-            return '#FFAE00';
-        case 'sixth':
-            return '#FF6100';
-        default:
-            return 'nothing';
-    }
-}
+// export const displaySextileColor = (value) => {
+//     // Hanlde the different sextile scenarios
+//     switch (value) {
+//         case 'first':
+//             return '#00E4FF';
+//         case 'second':
+//             return '#00FFA6';
+//         case 'third':
+//             return '#3EFF00';
+//         case 'fourth':
+//             return '#FFFB00';
+//         case 'fifth':
+//             return '#FFAE00';
+//         case 'sixth':
+//             return '#FF6100';
+//         default:
+//             return 'nothing';
+//     }
+// }
+//Hanlde the different sextile color scenarios
 const displaySextileColor2 = {
 
     first: '#00E4FF',
@@ -42,12 +43,11 @@ class YupPage extends Component {
     updateVote = (name, num) => {
         console.log(name, this.state)
         let copyOfOptions = this.state.options?.map(val => {
-            // direction stuff
-            // if (val.up === true && val.down === false) -1
 
+            // Arrow direction stuff
             // Maybe refactor
             if (val.name === name) {
-                // If we pressed down and the up was already pressed
+                // If we pressed down and the up button was already pressed
                 if (val.up && num < 0) {
                     // decrement
                     val.weight += num
@@ -122,15 +122,17 @@ class YupPage extends Component {
     render() {
         return (
             <div>
-                <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center">
+                <Card id='card'>
                     <img src={this.state.thumbnail} alt='thumbnail for post' />
-                    <VoteSection options={this.state.options} displayColor={displaySextileColor2}
-                        updateVote={this.updateVote} />
-                </Grid>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center">
+                        <VoteSection options={this.state.options} displayColor={displaySextileColor2}
+                            updateVote={this.updateVote} />
+                    </Grid>
+                </Card>
             </div>
         );
     }

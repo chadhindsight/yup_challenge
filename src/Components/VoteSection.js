@@ -7,7 +7,7 @@ import '/assets/funny.svg';
 import '/assets/popularity.svg';
 import '/assets/intelligence.svg';
 
-// The props.color will handle what color the underline should be
+//Props.color will handle what color the underline should be based on what comes back from API call
 const Text = styled.p`
     text-decoration: ${props => props.decoration};
     color: ${props => props.color}
@@ -17,15 +17,6 @@ const VoteSection = (props) => {
 
     const displayVotes = () => {
         // .weights & .sextiles
-        console.log(props)
-        // const arr = Object.values(props.data?.sextiles)
-
-        // let obj = Object.entries(props.data?.weights).map((el, i) => {
-        //     return { name: el[0], weight: el[1], sextile: Object.values(props.data?.sextiles)[i] }
-        // })
-        // console.log(arr)
-        // let options = obj.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
-
         return props.options?.map((stat, index) => {
             return (
                 <div key={index}>
