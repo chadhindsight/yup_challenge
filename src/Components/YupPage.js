@@ -2,60 +2,76 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
 
-class YupPage extends Component {
-    state = {}
-    
-    async componentDidMount() {
-       try {
-           let info = await axios.get('https://api.yup.io/posts/post/12794')
-        //    console.log(info.data.sextiles.popularity)
 
-        //Put all required values returned from the API into component state
-        this.setState({
-            thumbnail: info.data.previewData.img,
-            popularity: Math.floor(info.data.weights.popularity),
-            intelligence: Math.floor(info.data.weights.intelligence),
-            funny: Math.floor(info.data.weights.funny),
-            //Sextiles
-            popSextile: info.data.sextiles.popularity,
-            intelSextile: info.data.sextiles.intelligence,
-            funSextile: info.data.sextiles.funny
-        })
-       }
-       catch(err) {
-           console.log(err)
-       }
-    }
-
+export const displaySextileColor = (value) => {
     // Hanlde the different sextile scenarios
-    displaySextileColor(value) {
-        switch (value) {
-            case 'first':
-                return '#00E4FF';
-            case 'second':
-                return '#00FFA6';
-            case 'third':
-                return '#3EFF00';
-            case 'fourth':
-                return '#FFFB00';
-            case 'fifth':
-                return '#FFAE00';
-            case 'sixth':
-                return '#FF6100';
-            default:
-                return 'nothing';
+    switch (value) {
+        case 'first':
+            return '#00E4FF';
+        case 'second':
+            return '#00FFA6';
+        case 'third':
+            return '#3EFF00';
+        case 'fourth':
+            return '#FFFB00';
+        case 'fifth':
+            return '#FFAE00';
+        case 'sixth':
+            return '#FF6100';
+        default:
+            return 'nothing';
+    }
+}
+
+class YupPage extends Component {
+    // Initial empty state
+    state = {}
+
+    async componentDidMount() {
+        try {
+            let info = await axios.get('https://api.yup.io/posts/post/12754')
+            console.log(info.data)
+
+            //Put all required values returned from the API into component state
+            this.setState({
+                thumbnail: info.data.previewData.img,
+                stats: [
+                    {
+                        categoryRating: Math.floor(info.data.weights.popularity),
+                        categorySextile: info.data.sextiles.popularity,
+                        title: 'popularity',
+                        icon: 'Heart'
+
+                    },
+                    {
+                        categoryRating: Math.floor(info.data.weights.intelligence),
+                        categorySextile: info.data.sextiles.intelligence,
+                        title: 'intelligence',
+                        icon: 'Idea'
+                    },
+                    {
+                        categoryRating: Math.floor(info.data.weights.funny),
+                        categorySextile: info.data.sextiles.funny,
+                        title: 'funny',
+                        icon: 'Funny'
+                    }
+                ]
+            })
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 
-    
-    render() {
-        console.log(this.displaySextileColor(this.state.popSextile))
 
+
+
+    render() {
         return (
             <div>
-                <img src={this.state.thumbnail} alt='thumbnail for post'/>
-                <VoteSection {...this.state}
-                    displayColor={this.displaySextileColor}
+                <img src={this.state.thumbnail} alt='thumbnail for post' />
+                <VoteSection stats={this.state.stats}
+                    displayColor={displaySextileColor}
                 />
             </div>
         );
@@ -63,7 +79,3 @@ class YupPage extends Component {
 }
 
 export default YupPage;
-
-// Sextile Stuff
-// maybe use a switch statement to handle the sextile value you get from API
-// Pass the sextile value from state into a switch statement function
