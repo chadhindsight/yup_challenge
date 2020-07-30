@@ -78,7 +78,7 @@ class YupPage extends Component {
 
     async componentDidMount() {
         try {
-            let info = await axios.get('https://api.yup.io/posts/post/12754')
+            let info = await axios.get('https://api.yup.io/posts/post/12294')
 
             //Put all required values returned from the API into an array in component state
             let array1 = Object.entries(info.data.weights).map((el, i) => {
