@@ -7,76 +7,44 @@ import { ReactComponent as Funny } from '../assets/laughing.svg';
 import { ReactComponent as Heart } from '../assets/heart.svg';
 import { ReactComponent as Idea } from '../assets/idea.svg';
 import styled from "styled-components";
-import { useTheme } from '@material-ui/core';
 
-const VoteSection = (props) => {
-    const [downActive, setDown] = useState(false)
-    const [downActive2, setDown2] = useState(false)
-    const [downActive3, setDown3] = useState(false)
 
-    const [upActive, setUp] = useState(false)
-    const [upActive2,  setUp2] = useState(false)
-    const [upActive3, setUp3] = useState(false)
-
-    // The template in the styled component will handle what color the underline should be
-    // Styled comp for  Funny Number
-    const FunnyCount = styled.p`
-        text-decoration: underline;
-    color: ${props.displayColor(props.funSextile)}
+// The logic in template literal will handle what color the underline should be
+const Text = styled.p`
+    text-decoration: underline;
+    color: ${props => props.color}
 `;
 
-    // Styled Comp for Popularity Number
-    const Popularity = styled.p`
-    text-decoration: underline;
-    color: ${props.displayColor(props.popSextile)}
-`
-    //Styled comp for Intelligence Number
-    const Intelligence = styled.p`
-    text-decoration: underline;
-    color: ${props.displayColor(props.intelSextile)}
-`
 
+const VoteSection = (props) => {
+    const [down, setDown] = useState({ down: false })
+    const [up, setUp] = useState({ up: false })
+
+    const displayVotes = () => {
+        return props?.stats?.map(stat => {
+            return (
+                <div key >
+                    <KeyboardArrowUpIcon className={up ? 'upColor' : null} onClick={(e) => setUp(!up)} />
+                    <Tooltip >
+                        <SvgIcon >
+                            <Idea />
+                        </SvgIcon>
+                    </Tooltip>
+                    <KeyboardArrowDownIcon className={down ? 'downColor' : null} onClick={(e) => setDown(!down)} />
+
+                    {stat.categorySextile !== 'none' ?
+                        <Text color={props.displayColor(stat.categorySextile)}><span>{stat.categoryRating}</span></Text> :
+                        <p>{stat.categoryRating}</p>
+                    }
+                </div>
+            )
+        })
+    }
+    console.log(props?.stats)
     return (
-        <div>
-            <KeyboardArrowUpIcon className={upActive ? "upColor" : null} onClick={(e) => setUp(!upActive)} />
-            <Tooltip title="popularity">
-                <SvgIcon>
-                    <Heart />
-                </SvgIcon>
-            </Tooltip>
-            <KeyboardArrowDownIcon className={upActive2 ? "downColor" : null} onClick={(e) => setUp2(!upActive2)}/>
-
-            {props.popSextile !== 'none' ?
-                <Popularity><span>{props.popularity}</span></Popularity> :
-                <p>{props.popularity}</p>
-            }
-            
-            <KeyboardArrowUpIcon className={upActive3 ? "upColor" : null} onClick={(e) => setUp3(!upActive3)} />
-            <Tooltip title="intelligence">
-                <SvgIcon >
-                    <Idea />
-                </SvgIcon>
-            </Tooltip>
-            <KeyboardArrowDownIcon className={downActive2 ? "downColor" : null} onClick={(e) => setDown2(!downActive2)}/>
-
-            {props.intelSextile !== 'none' ?
-                <Intelligence><span>{props.intelligence}</span></Intelligence> :
-                <p>{props.intelligence}</p>
-            }
-            
-            <KeyboardArrowUpIcon className={downActive ? "upColor" : null} onClick={(e) => setDown(!downActive)} />
-            <Tooltip title="funny">
-                <SvgIcon>
-                    <Funny />
-                </SvgIcon>
-            </Tooltip>
-            <KeyboardArrowDownIcon className={downActive3 ? "downColor" : null} onClick={(e) => setDown3(!downActive3)}/>
-            {
-                props.funSextile !== 'none' ?
-                    <FunnyCount><span>{props.funny}</span></FunnyCount> :
-                <p>{props.funny}</p>
-            }
-        </div>
+        <>
+            {displayVotes()}
+        </>
     );
 };
 
