@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
-
+import { Grid } from '@material-ui/core';
 
 export const displaySextileColor = (value) => {
     // Hanlde the different sextile scenarios
@@ -63,16 +63,18 @@ class YupPage extends Component {
         }
     }
 
-
-
-
     render() {
         return (
             <div>
-                <img src={this.state.thumbnail} alt='thumbnail for post' />
-                <VoteSection stats={this.state.stats}
-                    displayColor={displaySextileColor}
-                />
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center">
+                    <img src={this.state.thumbnail} alt='thumbnail for post' />
+                    <VoteSection stats={this.state.stats}
+                        displayColor={displaySextileColor} />
+                </Grid>
             </div>
         );
     }
