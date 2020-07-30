@@ -22,6 +22,18 @@ export const displaySextileColor = (value) => {
             return 'nothing';
     }
 }
+const displaySextileColor2 = {
+
+    first: '#00E4FF',
+    second: '#00FFA6',
+    third: '#3EFF00',
+    fourth: '#FFFB00',
+    fifth: '#FFAE00',
+    sixth: '#FF6100',
+    none: ''
+
+}
+
 
 class YupPage extends Component {
     // Initial empty state
@@ -30,10 +42,17 @@ class YupPage extends Component {
     async componentDidMount() {
         try {
             let info = await axios.get('https://api.yup.io/posts/post/12754')
-            console.log(info.data)
+
+            //Put all required values returned from the API into arrays in component state
+            let array1 = Object.entries(info.data.weights).map((el, i) => {
+                return { name: el[0], weight: el[1], sextile: Object.values(info.data.sextiles)[i] }
+            })
+            let options = array1.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
 
             //Put all required values returned from the API into component state
             this.setState({
+                data: info.data,
+                options: options,
                 thumbnail: info.data.previewData.img,
                 stats: [
                     {
@@ -72,8 +91,9 @@ class YupPage extends Component {
                     justify="center"
                     alignItems="center">
                     <img src={this.state.thumbnail} alt='thumbnail for post' />
-                    <VoteSection stats={this.state.stats}
-                        displayColor={displaySextileColor} />
+                    <VoteSection options={this.state.options}
+
+                        displayColor={displaySextileColor2} />
                 </Grid>
             </div>
         );
@@ -81,3 +101,5 @@ class YupPage extends Component {
 }
 
 export default YupPage;
+{/* <VoteSection stats={this.state.stats}
+    displayColor={displaySextileColor} /> */}
