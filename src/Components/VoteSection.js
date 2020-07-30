@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Tooltip, SvgIcon, Grid } from '@material-ui/core';
+import React from 'react';
+import { Tooltip, Grid } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import styled from "styled-components";

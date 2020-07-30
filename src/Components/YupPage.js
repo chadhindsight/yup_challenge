@@ -139,5 +139,3 @@ class YupPage extends Component {
 }
 
 export default YupPage;
-{/* <VoteSection stats={this.state.stats}
-    displayColor={displaySextileColor} /> */}
