@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
 import { Grid, Card } from '@material-ui/core';
@@ -22,9 +22,8 @@ import { Grid, Card } from '@material-ui/core';
 //             return 'nothing';
 //     }
 // }
-//Hanlde the different sextile color scenarios
+//Hanlde the different sextile color scenarios. A different approach
 const displaySextileColor2 = {
-
     first: '#00E4FF',
     second: '#00FFA6',
     third: '#3EFF00',
@@ -32,20 +31,18 @@ const displaySextileColor2 = {
     fifth: '#FFAE00',
     sixth: '#FF6100',
     none: ''
-
 }
 
 
-class YupPage extends Component {
+const YupPage = () => {
     // Initial empty state
-    state = {}
+    const [state, updateState] = useState({})
 
-    updateVote = (name, num) => {
-        console.log(name, this.state)
-        let copyOfOptions = this.state.options?.map(val => {
+    const updateVote = (name, num) => {
+        console.log(name, state)
+        let copyOfOptions = state.options?.map(val => {
 
-            // Arrow direction stuff
-            // Maybe refactor
+            // Arrow direction stuff. Maybe refactor
             if (val.name === name) {
                 // If we pressed down and the up button was already pressed
                 if (val.up && num < 0) {
@@ -73,12 +70,14 @@ class YupPage extends Component {
 
             return val
         })
-        this.setState({ options: copyOfOptions })
+        updateState({ options: copyOfOptions })
     }
 
-    async componentDidMount() {
-        try {
-            let info = await axios.get('https://api.yup.io/posts/post/12294')
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // You can await here
+            const info = await axios.get('https://api.yup.io/posts/post/12294')
 
             //Put all required values returned from the API into an array in component state
             let array1 = Object.entries(info.data.weights).map((el, i) => {
@@ -86,56 +85,51 @@ class YupPage extends Component {
             })
             let options = array1.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
 
-            //Put all required values returned from the API into component state
-            this.setState({
-                data: info.data,
+            updateState({
                 options: options,
                 thumbnail: info.data.previewData.img,
-                stats: [
-                    {
-                        categoryRating: Math.floor(info.data.weights.popularity),
-                        categorySextile: info.data.sextiles.popularity,
-                        title: 'popularity',
-                        icon: 'Heart'
-
-                    },
-                    {
-                        categoryRating: Math.floor(info.data.weights.intelligence),
-                        categorySextile: info.data.sextiles.intelligence,
-                        title: 'intelligence',
-                        icon: 'Idea'
-                    },
-                    {
-                        categoryRating: Math.floor(info.data.weights.funny),
-                        categorySextile: info.data.sextiles.funny,
-                        title: 'funny',
-                        icon: 'Funny'
-                    }
-                ]
             })
         }
-        catch (err) {
-            console.log(err)
-        }
-    }
+        fetchData();
+    }, []);
 
-    render() {
-        return (
-            <div>
-                <Card id='card'>
-                    <img src={this.state.thumbnail} alt='thumbnail for post' />
-                    <Grid
-                        container
-                        direction="column"
-                        justify="center"
-                        alignItems="center">
-                        <VoteSection options={this.state.options} displayColor={displaySextileColor2}
-                            updateVote={this.updateVote} />
-                    </Grid>
-                </Card>
-            </div>
-        );
-    }
+    // async componentDidMount() {
+    //     try {
+    //         let info = await axios.get('https://api.yup.io/posts/post/12294')
+
+    //         let array1 = Object.entries(info.data.weights).map((el, i) => {
+    //             return { name: el[0], weight: el[1], sextile: Object.values(info.data.sextiles)[i], up: false, down: false }
+    //         })
+    //         let options = array1.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
+
+    //         //Put all required values returned from the API into component state
+    //         this.setState({
+    //             data: info.data,
+    //             options: options,
+    //             thumbnail: info.data.previewData.img,
+    //         })
+    //     }
+    //     catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    return (
+        <div>
+            <Card id='card'>
+                <img src={state.thumbnail} alt='thumbnail for post' />
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center">
+                    <VoteSection options={state.options} displayColor={displaySextileColor2}
+                        updateVote={updateVote} />
+                </Grid>
+            </Card>
+        </div>
+    );
 }
 
 export default YupPage;
+// 12754

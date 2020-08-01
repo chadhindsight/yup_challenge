@@ -1,9 +1,9 @@
 body {
   background-color: #222f3e;
 }
-/* #bulb {
-  background-color: white;
-} */
+#bulb {
+  fill: yellow;
+}
 
 .downColor {
   color: red;
@@ -13,9 +13,6 @@ body {
   color: #27ae60;
 }
 
-/* span {
-  color: black;
-} */
 .vote-container {
   width: 50%;
   display: flex;

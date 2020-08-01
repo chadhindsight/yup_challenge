@@ -31,10 +31,12 @@ const VoteSection = (props) => {
                             <Tooltip title={stat.name}>
                                 <img id="bulb" src={`/assets/${stat.name}.svg`} alt={stat.name} />
                             </Tooltip>
-                            <KeyboardArrowDownIcon className={stat.down ? 'downColor' : null} onClick={() => props.updateVote(stat.name, -1)} />
+                            <KeyboardArrowDownIcon className={stat.down ? 'downColor' : null}
+                                onClick={() => props.updateVote(stat.name, -1)} />
                         </Grid>
                         <Grid item xs >
-                            <Text color={props.displayColor[stat.sextile]} decoration={props.displayColor[stat.sextile] ? 'underline' :
+                            <Text color={props.displayColor[stat.sextile]} decoration={props.displayColor[stat.sextile] ?
+                                'underline' :
                                 'none'}>
                                 <span>{Math.round(stat.weight)}</span>
                             </Text>
