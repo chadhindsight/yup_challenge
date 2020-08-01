@@ -1,29 +1,10 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VoteSection from './VoteSection';
 import { Grid, Card } from '@material-ui/core';
 
-// export const displaySextileColor = (value) => {
-//     // Hanlde the different sextile scenarios
-//     switch (value) {
-//         case 'first':
-//             return '#00E4FF';
-//         case 'second':
-//             return '#00FFA6';
-//         case 'third':
-//             return '#3EFF00';
-//         case 'fourth':
-//             return '#FFFB00';
-//         case 'fifth':
-//             return '#FFAE00';
-//         case 'sixth':
-//             return '#FF6100';
-//         default:
-//             return 'nothing';
-//     }
-// }
 //Hanlde the different sextile color scenarios. A different approach
-const displaySextileColor2 = {
+const displaySextileColor = {
     first: '#00E4FF',
     second: '#00FFA6',
     third: '#3EFF00',
@@ -36,11 +17,12 @@ const displaySextileColor2 = {
 
 const YupPage = () => {
     // Initial empty state
-    const [state, updateState] = useState({})
+    const [thumbnail, setThumbnail] = useState('')
+    const [options, setOptions] = useState([])
 
     const updateVote = (name, num) => {
-        console.log(name, state)
-        let copyOfOptions = state.options?.map(val => {
+        console.log(name, options)
+        let copyOfOptions = options?.map(val => {
 
             // Arrow direction stuff. Maybe refactor
             if (val.name === name) {
@@ -70,13 +52,12 @@ const YupPage = () => {
 
             return val
         })
-        updateState({ options: copyOfOptions })
+        setOptions([...copyOfOptions])
     }
 
 
     useEffect(() => {
         const fetchData = async () => {
-            // You can await here
             const info = await axios.get('https://api.yup.io/posts/post/12294')
 
             //Put all required values returned from the API into an array in component state
@@ -85,10 +66,10 @@ const YupPage = () => {
             })
             let options = array1.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
 
-            updateState({
-                options: options,
-                thumbnail: info.data.previewData.img,
-            })
+            const thumbnail = info.data.previewData.img
+
+            setOptions([...options])
+            setThumbnail(thumbnail)
         }
         fetchData();
     }, []);
@@ -117,13 +98,13 @@ const YupPage = () => {
     return (
         <div>
             <Card id='card'>
-                <img src={state.thumbnail} alt='thumbnail for post' />
+                <img src={thumbnail} alt='thumbnail for post' />
                 <Grid
                     container
                     direction="column"
                     justify="center"
                     alignItems="center">
-                    <VoteSection options={state.options} displayColor={displaySextileColor2}
+                    <VoteSection options={options} displayColor={displaySextileColor}
                         updateVote={updateVote} />
                 </Grid>
             </Card>
