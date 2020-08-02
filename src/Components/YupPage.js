@@ -3,7 +3,7 @@ import axios from 'axios';
 import VoteSection from './VoteSection';
 import { Grid, Card } from '@material-ui/core';
 
-//Hanlde the different sextile color scenarios. A different approach
+//Hanlde the different sextile color scenarios. Maybe put in state?
 const displaySextileColor = {
     first: '#00E4FF',
     second: '#00FFA6',
@@ -14,9 +14,8 @@ const displaySextileColor = {
     none: ''
 }
 
-
 const YupPage = () => {
-    // Initial empty state
+    // Initial state values using hooks
     const [thumbnail, setThumbnail] = useState('')
     const [options, setOptions] = useState([])
 
@@ -73,27 +72,6 @@ const YupPage = () => {
         }
         fetchData();
     }, []);
-
-    // async componentDidMount() {
-    //     try {
-    //         let info = await axios.get('https://api.yup.io/posts/post/12294')
-
-    //         let array1 = Object.entries(info.data.weights).map((el, i) => {
-    //             return { name: el[0], weight: el[1], sextile: Object.values(info.data.sextiles)[i], up: false, down: false }
-    //         })
-    //         let options = array1.filter(el => (el.name === 'funny' || el.name === 'intelligence' || el.name === 'popularity' ? el : null))
-
-    //         //Put all required values returned from the API into component state
-    //         this.setState({
-    //             data: info.data,
-    //             options: options,
-    //             thumbnail: info.data.previewData.img,
-    //         })
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //     }
-    // }
 
     return (
         <div>
