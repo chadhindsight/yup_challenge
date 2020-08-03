@@ -17,7 +17,7 @@ const VoteSection = (props) => {
 
     const displayVotes = () => {
         // .weights & .sextiles
-        return props.options?.map((stat, index) => {
+        return props.options?.map((item, index) => {
             return (
                 <div key={index}>
 
@@ -26,17 +26,17 @@ const VoteSection = (props) => {
                         direction="row">
 
                         <Grid item xs >
-                            <KeyboardArrowUpIcon className={stat.up ? 'upColor' : null} title="up-arrow"
-                                onClick={() => props.updateVote(stat.name, 1)} />
-                            <Tooltip title={stat.name}>
-                                <img id="bulb" src={`/assets/${stat.name}.svg`} alt={stat.name} />
+                            <KeyboardArrowUpIcon className={item.up ? 'upColor' : null} title="up-arrow"
+                                onClick={() => props.updateVote(item.name, 1)} />
+                            <Tooltip title={item.name}>
+                                <img id="bulb" src={`/assets/${item.name}.svg`} alt={item.name} />
                             </Tooltip>
-                            <KeyboardArrowDownIcon className={stat.down ? 'downColor' : null} onClick={() => props.updateVote(stat.name, -1)} />
+                            <KeyboardArrowDownIcon className={item.down ? 'downColor' : null} onClick={() => props.updateVote(item.name, -1)} />
                         </Grid>
                         <Grid item xs >
-                            <Text color={props.displayColor[stat.sextile]} decoration={props.displayColor[stat.sextile] ? 'underline' :
+                            <Text color={props.displayColor[item.sextile]} decoration={props.displayColor[item.sextile] ? 'underline' :
                                 'none'}>
-                                <span>{Math.round(stat.weight)}</span>
+                                <span>{Math.round(item.weight)}</span>
                             </Text>
                         </Grid>
                     </Grid>
