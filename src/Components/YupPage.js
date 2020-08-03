@@ -24,7 +24,6 @@ import { Grid, Card } from '@material-ui/core';
 // }
 //Hanlde the different sextile color scenarios
 const displaySextileColor2 = {
-
     first: '#00E4FF',
     second: '#00FFA6',
     third: '#3EFF00',
@@ -41,20 +40,18 @@ class YupPage extends Component {
     state = {}
 
     updateVote = (name, num) => {
-        console.log(name, this.state)
-        let copyOfOptions = this.state.options?.map(val => {
+        let copyOfOptions = this.state.options.map(val => {
 
             // Arrow direction stuff
             // Maybe refactor
             if (val.name === name) {
-                // If we pressed down and the up button was already pressed
+                // If we click down and the up button was already clicked
                 if (val.up && num < 0) {
-                    // decrement
                     val.weight += num
                     val.up = !val.up
                 }
                 else if (val.down && num > 0) {
-                    // If we press up and the down was already pressed
+                    // If we click up and the down was already clicked
                     //Increment 
                     val.weight += num
                     val.down = !val.down
@@ -90,28 +87,7 @@ class YupPage extends Component {
             this.setState({
                 data: info.data,
                 options: options,
-                thumbnail: info.data.previewData.img,
-                stats: [
-                    {
-                        categoryRating: Math.floor(info.data.weights.popularity),
-                        categorySextile: info.data.sextiles.popularity,
-                        title: 'popularity',
-                        icon: 'Heart'
-
-                    },
-                    {
-                        categoryRating: Math.floor(info.data.weights.intelligence),
-                        categorySextile: info.data.sextiles.intelligence,
-                        title: 'intelligence',
-                        icon: 'Idea'
-                    },
-                    {
-                        categoryRating: Math.floor(info.data.weights.funny),
-                        categorySextile: info.data.sextiles.funny,
-                        title: 'funny',
-                        icon: 'Funny'
-                    }
-                ]
+                thumbnail: info.data.previewData.img
             })
         }
         catch (err) {
